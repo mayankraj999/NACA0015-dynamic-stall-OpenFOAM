@@ -1,0 +1,29 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       IOobject;
+    location    "0";
+    object      initialConditions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+np                           4;
+iterations                   1;
+writeEvery                1e-3;
+
+alpha                      0;
+chord                      1;
+CR                   (0 0 0);
+pitch                (0 1 0);
+
+mach                     0.5;
+Rair                  287.05;
+gamma                    1.4;
+Tref                     298;
+pRef                  100000;
+muVal               1.82e-05;
+rhoVal                  1.17;
+
+turbModel          kOmegaSST;
+hWall                0.01106;

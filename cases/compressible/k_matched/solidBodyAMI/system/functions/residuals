@@ -1,0 +1,10 @@
+residuals
+{
+     type            residuals;
+     libs            ("libutilityFunctionObjects.so");
+
+     writeControl    adjustableRunTime;
+     writeInterval   1e-3;
+
+     fields (p U h k omega);
+}

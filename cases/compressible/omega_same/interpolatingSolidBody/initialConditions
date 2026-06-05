@@ -1,0 +1,50 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     |                                                 |
+|   \\  /    A nd           |                                                 |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       IOobject;
+    location    "0";
+    object      initialConditions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// simulation controls
+
+np                           4; // number of processors for parallel computation
+iterations                   2; // total simulation time [s]
+writeEvery                1e-2; // write interval [s]
+
+// airfoil properties
+
+alpha                      0; // deg - incidence angle
+chord                      1; // chord length
+CR                   (0 0 0); // center of rotation
+pitch                (0 1 0); // pitch axis direction
+
+// fluid properties (compressible)
+
+mach                     0.5;
+Rair                  287.05; // J / (Kg*K)
+gamma                    1.4;
+Tref                     298; // K  (freestream static temperature)
+pRef                  100000; // Pa (freestream static pressure, ~1 atm)
+muVal               1.82e-05; // dynamic viscosity [Pa·s]
+rhoVal                  1.17; // kg/m^3  (consistent with pRef/(Rair*Tref))
+
+// turbulence properties
+
+turbModel          kOmegaSST;
+hWall                0.01106; // first cell height
+
+// Derived quantities (for reference — computed via #calc in field files)
+// a   = sqrt(gamma * Rair * Tref) = 346.2 m/s
+// Uinf= mach * a = 173.1 m/s
+// Re  = rhoVal * Uinf * chord / muVal ≈ 1.11e7
+

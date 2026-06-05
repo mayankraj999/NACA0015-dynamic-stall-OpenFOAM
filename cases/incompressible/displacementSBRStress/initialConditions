@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  | Input file written by Sebastiano Stipa          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       IOobject;
+    location    "0";
+    object      initialConditions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// simulation controls
+
+np		                     4; // number of processors for parallel computation
+iterations                 5; // total number of iterations (to be increases, see NOTES below)
+writeEvery              1e-2; // writes down step data every "writeEvery" iterations
+
+// airfoil properties
+
+alpha                      0; // deg - incidence angle
+chord                      1; // chord length
+CR                   (0 0 0); // center of rotation
+pitch                (0 1 0); // pitch axis direction
+
+// fluid properties
+
+mach                    0.05;
+Rair                  287.05; // J / (Kg*K)
+gamma                    1.4;
+Tref                     298; // K
+muVal               1.82e-05; // dynamic viscosity
+rhoVal                  1.17; // must be consistent with rho = R*T/P (see fields in 0.orig)
+
+// turbulence properties
+
+turbModel          kOmegaSST;
+hWall                0.01106; // firt cell height Compute as: hWall = Hz / SUM( i from 0 to Nz-1 )( zGrading ^ (i / (Nz-1)) )   
+

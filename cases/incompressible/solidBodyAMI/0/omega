@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "./initialConditions"
+
+dimensions      [0 0 -1 0 0 0 0];
+
+Ux              #calc "$mach * sqrt($gamma*$Rair*$Tref)*cos(degToRad($alpha))";
+Uz              #calc "$mach * sqrt($gamma*$Rair*$Tref)*sin(degToRad($alpha))";
+Umag            #calc "sqrt($Ux*$Ux + $Uz*$Uz)";
+
+omegaInlet     #calc"1.0 * $Umag / $chord";
+omegaWall      #calc"10.0 * 6.0 * $muVal / $rhoVal / $betaOne / ($hWall * $hWall / 4)";
+
+internalField   uniform $omegaInlet;
+
+boundaryField
+{
+    aerofoil
+    {
+        type            omegaWallFunction;
+        value           uniform $omegaWall;
+    }
+    inlet
+    {
+        type            inletOutlet;
+        inletValue      uniform $omegaInlet;
+        value           uniform $omegaInlet;
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform $omegaInlet;
+        value           uniform $omegaInlet;
+    }
+    back
+    {
+        type            empty;
+    }
+    front
+    {
+        type            empty;
+    }
+    masterAMI
+    {
+        type            cyclicAMI;
+        value           $internalField;
+    }
+    slaveAMI
+    {
+        type            cyclicAMI;
+        value           $internalField;
+    }
+}
+
+
+// ************************************************************************* //

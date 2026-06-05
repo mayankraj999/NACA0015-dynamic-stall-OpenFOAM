@@ -1,0 +1,45 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     |                                                 |
+|   \\  /    A nd           |                                                 |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       IOobject;
+    location    "0";
+    object      initialConditions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// simulation controls
+
+np                           4;
+iterations                   1; // 1s = 10 cycles at omega=62.8 (period=0.1s)
+writeEvery                1e-3; // ~10 writes per cycle
+
+// airfoil properties
+
+alpha                      0;
+chord                      1;
+CR                   (0 0 0);
+pitch                (0 1 0);
+
+// fluid properties (compressible)
+
+mach                     0.5;
+Rair                  287.05;
+gamma                    1.4;
+Tref                     298;
+pRef                  100000;
+muVal               1.82e-05;
+rhoVal                  1.17;
+
+// turbulence properties
+
+turbModel          kOmegaSST;
+hWall                0.01106;
+

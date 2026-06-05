@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2412                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+7
+(
+    aerofoil
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          32;
+        startFace       6928;
+    }
+    back
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          3570;
+        startFace       6960;
+    }
+    front
+    {
+        type            empty;
+        inGroups        1(empty);
+        nFaces          3570;
+        startFace       10530;
+    }
+    inlet
+    {
+        type            patch;
+        inGroups        1(freestream);
+        nFaces          102;
+        startFace       14100;
+    }
+    outlet
+    {
+        type            patch;
+        inGroups        1(freestream);
+        nFaces          70;
+        startFace       14202;
+    }
+    masterAMI
+    {
+        type            cyclicAMI;
+        inGroups        1(cyclicAMI);
+        nFaces          94;
+        startFace       14272;
+        matchTolerance  0.001;
+        transform       noOrdering;
+        neighbourPatch  slaveAMI;
+        AMIMethod       faceAreaWeightAMI;
+        restartUncoveredSourceFace 1;
+    }
+    slaveAMI
+    {
+        type            cyclicAMI;
+        inGroups        1(cyclicAMI);
+        nFaces          96;
+        startFace       14366;
+        matchTolerance  0.001;
+        transform       noOrdering;
+        neighbourPatch  masterAMI;
+        AMIMethod       faceAreaWeightAMI;
+        restartUncoveredSourceFace 1;
+    }
+)
+
+// ************************************************************************* //

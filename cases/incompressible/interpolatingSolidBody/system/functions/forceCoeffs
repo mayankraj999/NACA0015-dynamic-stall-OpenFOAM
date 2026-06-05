@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           |
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+forceCoeffs
+{
+    type            forceCoeffs;
+    libs            ("libforces.so");
+
+    writeControl    timeStep;
+    writeInterval   1;
+
+    log             yes;
+
+    patches         (aerofoil);
+
+    // Reference values
+    rho             rhoInf;
+    rhoInf          1.17;           // from initialConditions
+    magUInf         17.3;           // Mach * sqrt(gamma * R * T)
+    lRef            1;              // chord
+    Aref            1;              // chord * span (span = 1 for 2D)
+
+    // Directions
+    liftDir         (0 0 1);        // lift is in z-direction
+    dragDir         (1 0 0);        // drag is in x-direction
+    pitchAxis       (0 1 0);        // pitch about y-axis
+
+    CofR            (0.25 0 0);     // moment reference at quarter-chord
+}
+
+forces
+{
+    type            forces;
+    libs            ("libforces.so");
+
+    writeControl    timeStep;
+    writeInterval   1;
+
+    log             yes;
+
+    patches         (aerofoil);
+
+    rho             rhoInf;
+    rhoInf          1.17;
+
+    CofR            (0.25 0 0);
+}
+
+// ************************************************************************* //

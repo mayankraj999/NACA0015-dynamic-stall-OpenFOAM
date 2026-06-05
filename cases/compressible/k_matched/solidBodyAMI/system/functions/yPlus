@@ -1,0 +1,7 @@
+yPlus
+{
+    libs            ("libfieldFunctionObjects.so");
+    type            yPlus;
+    writeControl    adjustableRunTime;
+    writeInterval   1e-3;
+}

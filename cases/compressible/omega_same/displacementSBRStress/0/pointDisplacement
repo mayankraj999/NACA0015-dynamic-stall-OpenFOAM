@@ -1,0 +1,45 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       pointVectorField;
+    location    "0";
+    object      pointDisplacement;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    aerofoil
+    {
+        type            angularOscillatingDisplacement;
+        axis            (0 1 0);
+        origin          (0.5 0 0);
+        angle0          0;
+        amplitude       #calc"degToRad(15)";
+        omega           6.28;
+        value           uniform (0 0 0);
+    }
+
+    front
+    {
+        type            empty;
+    }
+
+    back
+    {
+        type            empty;
+    }
+
+     ".*"
+     {
+         type            fixedValue;
+         value           uniform (0 0 0);
+     }
+}
+
+// ************************************************************************* //

@@ -1,0 +1,55 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "./initialConditions"
+
+dimensions      [0 1 -1 0 0 0 0];
+
+Ux              #calc "$mach * sqrt($gamma*$Rair*$Tref)*cos(degToRad($alpha))";
+Uz              #calc "$mach * sqrt($gamma*$Rair*$Tref)*sin(degToRad($alpha))";
+
+internalField   uniform ($Ux 0 $Uz);
+
+boundaryField
+{
+    aerofoil
+    {
+        type            movingWallVelocity;
+        value           uniform (0 0 0);
+    }
+    inlet
+    {
+        type            fixedValue;
+        value           uniform ($Ux 0 $Uz);
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           $internalField;
+    }
+    back
+    {
+        type            empty;
+    }
+    front
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //

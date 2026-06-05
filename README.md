@@ -113,6 +113,7 @@ Detailed statistics for each case are in the [stats/](stats/) folder.
 - **OpenFOAM versions**: v2412 (ESI) and v6 (Foundation)
 
 ## Repository Structure
+```
 ├── cases/
 │   ├── incompressible/
 │   │   ├── interpolatingSolidBody/
@@ -141,6 +142,7 @@ Detailed statistics for each case are in the [stats/](stats/) folder.
 ├── scripts/
 │   └── postprocess_unified.py
 └── README.md
+```
 
 ## Post-Processing Usage
 ```bash

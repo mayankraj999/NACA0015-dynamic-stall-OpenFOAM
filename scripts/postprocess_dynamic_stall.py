@@ -46,7 +46,15 @@ from pathlib import Path
 
 AMPLITUDE = 15.0
 ALPHA_MEAN = 0.0
-AREF_CORRECTION = 1.0 / 0.2  # = 5.0
+# --- Reference-area scaling for committed data ---------------------------
+# The coefficient.dat files in this repo were generated with Aref = 1 m^2 in
+# the forceCoeffs function object. The mesh is extruded by 0.2 m, so the true
+# 2D reference area is chord(1 m) * span(0.2 m) = 0.2 m^2. The raw coefficients
+# are therefore 5x too small and are rescaled below to true 2D values.
+# NOTE: the case files now ship with the corrected Aref = 0.2. If you RE-RUN
+# any case with that corrected setting, the new coefficient.dat is already
+# correct -- set AREF_CORRECTION = 1.0 to avoid double-correcting.
+AREF_CORRECTION = 1.0 / 0.2  # = 5.0  (legacy data made with Aref=1; see note above)
 
 DEFAULT_LABELS = [
     "interpolatingSolidBody",

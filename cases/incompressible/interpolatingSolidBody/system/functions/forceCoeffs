@@ -23,7 +23,7 @@ forceCoeffs
     rhoInf          1.17;           // from initialConditions
     magUInf         17.3;           // Mach * sqrt(gamma * R * T)
     lRef            1;              // chord
-    Aref            1;              // chord * span (span = 1 for 2D)
+    Aref            0.2;            // chord(1m) * span(0.2m extrude) = true 2D reference
 
     // Directions
     liftDir         (0 0 1);        // lift is in z-direction

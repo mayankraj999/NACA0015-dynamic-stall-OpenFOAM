@@ -23,7 +23,7 @@ forceCoeffs
     pRef            100000;         // subtract ambient pressure
     magUInf         173.1;
     lRef            1;
-    Aref            1;
+    Aref            0.2;            // chord(1m) * span(0.2m extrude) = true 2D reference
 
     liftDir         (0 0 1);
     dragDir         (1 0 0);
